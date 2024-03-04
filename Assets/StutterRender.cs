@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class StutterRender : MonoBehaviour
 {
+    public static StutterRender instance;
+
     [SerializeField] int renderEvery = 1;
     [SerializeField] int minInterval = 30;
     [SerializeField] int maxInterval = 60;
@@ -13,8 +15,23 @@ public class StutterRender : MonoBehaviour
     int countSinceLastStutter;
     int interval;
     int stutter;
-    
-    void Start()
+
+    // other scripts can set this to freeze rendering for a certain number of real frames (useful for creating "freeze-frames" for "Impact")
+    public int extraStutter { get; set; }
+
+	private void Awake()
+	{
+        // singleton stuff
+        if (instance)
+        {
+            Debug.LogError("An instance of StutterRender already exists! Destroying this instance!");
+            Destroy(this);
+            return;
+        }
+        instance = this;
+	}
+
+	void Start()
     {
         cam = GetComponent<Camera>();
         cam.enabled = false;
@@ -24,24 +41,31 @@ public class StutterRender : MonoBehaviour
 
     void Update()
     {
-        if (countSinceLastStutter > interval + stutter)
+        if (extraStutter <= 0)
         {
-            BeginCycle();
-        }
-
-        if (countSinceLastStutter <= interval)
-        {
-            if (countSinceLastStutter % renderEvery == 0)
+            if (countSinceLastStutter > interval + stutter)
             {
-                cam.Render();
+                BeginCycle();
             }
-        }
-        else // stuttering
-        {
-            // uh
-        }
 
-        countSinceLastStutter++;
+            if (countSinceLastStutter <= interval)
+            {
+                if (countSinceLastStutter % renderEvery == 0)
+                {
+                    cam.Render();
+                }
+            }
+            else // stuttering
+            {
+                // uh
+            }
+
+            countSinceLastStutter++;
+        }
+        else
+        {
+            extraStutter--;
+        }
     }
 
     void BeginCycle()
