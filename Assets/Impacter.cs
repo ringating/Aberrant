@@ -30,12 +30,12 @@ public class Impacter : MonoBehaviour
         {
             case ImpactType.left:
                 mainCamAnimation.Play(impactLeftClipName);
-                lightRB.AddForce(Vector3.left * lightImpulse, ForceMode.Impulse);
+                lightRB.AddForce(Vector3.right * lightImpulse, ForceMode.Impulse);
                 break;
 
             case ImpactType.right:
                 mainCamAnimation.Play(impactRightClipName);
-                lightRB.AddForce(Vector3.right * lightImpulse, ForceMode.Impulse);
+                lightRB.AddForce(Vector3.left * lightImpulse, ForceMode.Impulse);
                 break;
         }
     }
