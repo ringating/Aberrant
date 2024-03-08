@@ -1649,8 +1649,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 963194227}
   toDupe: {fileID: 8400000, guid: e46561c8582933841aa39615a09d0c0d, type: 2}
-  frameCount: 120
-  captureEvery: 3
+  frameCount: 150
+  captureEvery: 4
   replayBuffer: []
   recording: 1
 --- !u!1 &963194225
