@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,6 +32,9 @@ public class GameplayManager : MonoBehaviour
 	private void Start()
 	{
 		currentGameState = GameState.aboveGround;
+
+		// TEST
+		LevelGenerator.instance.SpawnLevel(floorSettings[0]);
 	}
 
 	public void Door(Door doorToEnter)
