@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class RandomTextureSwitcher : MonoBehaviour
 {
-	public float textureDuration = 0.125f;
+	public float textureDuration = 0.25f;
 	public Texture2D[] textures;
 
 	MeshRenderer mr;
