@@ -9,11 +9,13 @@ public class GameplayManager : MonoBehaviour
 	{
 		aboveGround,
 		elevator,
-		floorPrePower,
-		floorPostPower
+		prePower,
+		postPower
 	}
 
 	[HideInInspector] public GameState currentGameState;
+	[HideInInspector] public Room currentRoom;
+	//public Camera currentCamera { get { return currentRoom ? currentRoom.myCamera : null; } }
 
 	public LevelSettings[] floorSettings;
 
@@ -33,11 +35,16 @@ public class GameplayManager : MonoBehaviour
 	{
 		currentGameState = GameState.aboveGround;
 
-		// TEST
+		// TESTING GENERATION
 		LevelGenerator.instance.SpawnLevel(floorSettings[0]);
 	}
 
-	public void Door(Door doorToEnter)
+	public void UseElevatorDoor()
+	{
+
+	}
+
+	public void UseDoor(Door doorToEnter)
 	{
 		// teleport player to other door/room
 		// TODO
@@ -47,5 +54,17 @@ public class GameplayManager : MonoBehaviour
 
 		//switch active cameras
 		// TODO
+	}
+
+	public Camera GetCameraOfCurrentRoom(out CRTCamera crtCam)
+	{
+		Camera cam = GetCameraOfCurrentRoom();
+		crtCam = cam.gameObject.GetComponent<CRTCamera>();
+		return cam;
+	}
+
+	public Camera GetCameraOfCurrentRoom()
+	{
+		return currentRoom ? currentRoom.myCamera : null;
 	}
 }

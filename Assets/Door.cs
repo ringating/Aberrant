@@ -6,9 +6,21 @@ public class Door : MonoBehaviour
     [HideInInspector] public Door connectedTo; // possibly assigned during level generation (if not, this door's gameobject will get destroyed by the level generator at some point)
     [HideInInspector] public Room myRoom; // assigned during Room's Awake
 
+    public InteractableTrigger myTrigger;
+
     public bool connected { get { return connectedTo; } }
 
-    public void DestroyIfNotConnected()
+	private void OnEnable()
+	{
+        myTrigger.OnInteract += UseDoor;
+	}
+
+	private void OnDisable()
+	{
+        myTrigger.OnInteract -= UseDoor;
+    }
+
+	public void DestroyIfNotConnected()
     {
         if (!connected)
         {
@@ -24,6 +36,6 @@ public class Door : MonoBehaviour
             return;
         }
         
-        GameplayManager.instance.Door(this);
+        GameplayManager.instance.UseDoor(this);
     }
 }

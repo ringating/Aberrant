@@ -18,7 +18,7 @@ public class TimeWriter : MonoBehaviour
 		timeText.text = $"{TwoDigits(hours)}:{TwoDigits(minutes)}:{TwoDigits(seconds)}";
 	}
 
-	string TwoDigits(int number)
+	public static string TwoDigits(int number)
 	{
 		if (number < 10)
 		{

@@ -78,7 +78,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         // destroy unused doors
-        // TODO
+        DestroyAllDisconnectedDoorsInLevel(levelRoot);
 
         // add the power switch
         // TODO
@@ -132,6 +132,16 @@ public class LevelGenerator : MonoBehaviour
         }
 
         return allDisconnectedDoors;
+    }
+
+    void DestroyAllDisconnectedDoorsInLevel(Transform levelRoot)
+    {
+        List<Door> allDisconnectedDoors = GetAllDisconnectedDoorsInLevel(levelRoot);
+
+        foreach (Door d in allDisconnectedDoors)
+        {
+            Destroy(d.gameObject);
+        }
     }
 
     Door GetRandomDisconnectedDoorInLevel(Transform levelRoot)

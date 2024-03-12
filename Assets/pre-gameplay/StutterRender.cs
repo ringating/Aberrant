@@ -10,7 +10,7 @@ public class StutterRender : MonoBehaviour
     [SerializeField] int minStutter = 1;
     [SerializeField] int maxStutter = 3;
 
-    Camera cam;
+    public static Camera currentCamera { get; set; }
 
     int countSinceLastStutter;
     int interval;
@@ -33,9 +33,6 @@ public class StutterRender : MonoBehaviour
 
 	void Start()
     {
-        cam = GetComponent<Camera>();
-        cam.enabled = false;
-
         BeginCycle();
     }
 
@@ -52,7 +49,7 @@ public class StutterRender : MonoBehaviour
             {
                 if (countSinceLastStutter % renderEvery == 0)
                 {
-                    cam.Render();
+                    if (currentCamera) currentCamera.Render();
                 }
             }
             else // stuttering
