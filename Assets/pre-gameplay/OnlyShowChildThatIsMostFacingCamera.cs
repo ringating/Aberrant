@@ -8,12 +8,15 @@ public class OnlyShowChildThatIsMostFacingCamera : MonoBehaviour
         matchCameraNegativeZ
     }
 
-    public Camera cam;
+    public Camera cam { get { return CRTCameraSwitcher.instance.currentCamera; } }
     public BillboardStyle billboardStyle;
 
     void Update()
     {
-        EnableBestChildAndHideTheRest();
+        if (cam)
+        {
+            EnableBestChildAndHideTheRest();
+        }
     }
 
     void EnableBestChildAndHideTheRest()

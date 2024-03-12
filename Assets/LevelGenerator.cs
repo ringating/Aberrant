@@ -136,11 +136,20 @@ public class LevelGenerator : MonoBehaviour
 
     void DestroyAllDisconnectedDoorsInLevel(Transform levelRoot)
     {
-        List<Door> allDisconnectedDoors = GetAllDisconnectedDoorsInLevel(levelRoot);
+        /*List<Door> allDisconnectedDoors = GetAllDisconnectedDoorsInLevel(levelRoot);
 
         foreach (Door d in allDisconnectedDoors)
         {
             Destroy(d.gameObject);
+        }*/
+
+        // the above doesn't allow the rooms to maintain their doors lists properly
+
+        List<Room> allRooms = GetRoomsOfLevel(levelRoot);
+
+        foreach (Room r in allRooms)
+        {
+            r.DestroyAllDisconnectedDoors();
         }
     }
 

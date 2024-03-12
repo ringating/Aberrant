@@ -50,6 +50,13 @@ public class Player : MonoBehaviour
 			velocity += desiredMovement * Time.deltaTime;
 		}
 
+		// rotate the player to face their velocity
+		Vector3 velNoVert = new Vector3(velocity.x, 0, velocity.z);
+		if (velNoVert.magnitude > 0.01f)
+		{
+			transform.rotation = Quaternion.LookRotation(velNoVert);
+		}
+
 		// add fake gravity
 		velocity += Vector3.down * 0.1f;
 
