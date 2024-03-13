@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InteractableTrigger : MonoBehaviour
 {
+	public string interactText = "press E to interact";
+
 	public delegate void PlayerEnteredTriggerAction();
 	public event PlayerEnteredTriggerAction OnPlayerEnteredTrigger;
 
@@ -27,6 +29,7 @@ public class InteractableTrigger : MonoBehaviour
 		Player player = other.GetComponent<Player>();
 		if (player)
 		{
+			InteractText.instance.tmp.text = interactText;
 			OnPlayerEnteredTrigger?.Invoke();
 		}
 	}
@@ -43,6 +46,7 @@ public class InteractableTrigger : MonoBehaviour
 		Player player = other.GetComponent<Player>();
 		if (player)
 		{
+			InteractText.instance.tmp.text = "";
 			OnPlayerExitedTrigger?.Invoke();
 		}
 	}
