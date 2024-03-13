@@ -7,6 +7,7 @@ public class Door : MonoBehaviour
     [HideInInspector] public Room myRoom; // assigned during Room's Awake
 
     public InteractableTrigger myTrigger;
+    public Transform playerTeleportPoint;
 
     public bool connected { get { return connectedTo; } }
 

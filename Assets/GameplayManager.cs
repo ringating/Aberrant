@@ -16,8 +16,11 @@ public class GameplayManager : MonoBehaviour
 	[HideInInspector] public GameState currentGameState;
 	[HideInInspector] public Room currentRoom;
 	//public Camera currentCamera { get { return currentRoom ? currentRoom.myCamera : null; } }
+	[HideInInspector] public Transform currentLevelRoot;
 
 	public LevelSettings[] floorSettings;
+
+	int floorIndex;
 
 	private void Awake()
 	{
@@ -35,25 +38,21 @@ public class GameplayManager : MonoBehaviour
 	{
 		currentGameState = GameState.aboveGround;
 
+		floorIndex = -1;
+
 		// TESTING GENERATION
-		LevelGenerator.instance.SpawnLevel(floorSettings[0]);
+		currentLevelRoot = LevelGenerator.instance.SpawnLevel(floorSettings[0]);
 	}
 
-	public void UseElevatorDoor()
+	/*public void UseElevatorDoor()
 	{
 
-	}
+	}*/
 
 	public void UseDoor(Door doorToEnter)
 	{
-		// teleport player to other door/room
-		// TODO
-
-		//play the transition animation for the camera
-		// TODO
-
-		//switch active cameras
-		// TODO
+		// teleport player to other door/room + transition
+		CRTCameraSwitcher.instance.SwitchTo(doorToEnter.myRoom.myCamera, doorToEnter.playerTeleportPoint);
 	}
 
 	public Camera GetCameraOfCurrentRoom(out CRTCamera crtCam)
@@ -66,5 +65,20 @@ public class GameplayManager : MonoBehaviour
 	public Camera GetCameraOfCurrentRoom()
 	{
 		return currentRoom ? currentRoom.myCamera : null;
+	}
+
+	public bool GenerateNextFloor() // returns false if every floor has already been generated
+	{
+		floorIndex++;
+
+		if (floorIndex < floorSettings.Length)
+		{
+			currentLevelRoot = LevelGenerator.instance.SpawnLevel(floorSettings[floorIndex]);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
