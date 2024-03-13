@@ -11,7 +11,7 @@ public class OnlyShowChildThatIsMostFacingCamera : MonoBehaviour
     public Camera cam { get { return CRTCameraSwitcher.instance.currentCamera; } }
     public BillboardStyle billboardStyle;
 
-    void Update()
+    void LateUpdate()
     {
         if (cam)
         {

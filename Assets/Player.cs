@@ -11,6 +11,19 @@ public class Player : MonoBehaviour
 
 	public float speed = 5;
 
+	public enum State
+	{
+		runOrIdle,
+		punching,
+		dodging
+	}
+
+	public State currState;
+	private State prevState;
+
+	public GameObject idleVisuals;
+	public GameObject runningVisuals;
+
 	private void Awake()
 	{
 		// singleton stuff
@@ -24,6 +37,9 @@ public class Player : MonoBehaviour
 
 		// get components
 		cc = GetComponent<CharacterController>();
+
+		// set values
+		prevState = currState;
 	}
 
 	private void Update()
@@ -31,6 +47,7 @@ public class Player : MonoBehaviour
 		Vector3 velocity = Vector3.zero;
 
 		CRTCamera crtCam = CRTCameraSwitcher.instance.currentCamera.gameObject.GetComponent<CRTCamera>();
+		Vector3 adjustedMoveInput = Vector3.zero;
 
 		if (crtCam)
 		{
@@ -45,9 +62,30 @@ public class Player : MonoBehaviour
 			Vector3 forwardNoVertical = new Vector3(camForward.x, 0, camForward.z).normalized;
 			Vector3 rightNoVertical = new Vector3(camRight.x, 0, camRight.z).normalized;
 
-			Vector3 desiredMovement = speed * ((moveInput.y * forwardNoVertical) + (moveInput.x * rightNoVertical));
+			adjustedMoveInput = (moveInput.y * forwardNoVertical) + (moveInput.x * rightNoVertical);
+		}
 
-			velocity += desiredMovement * Time.deltaTime;
+		// do state-specific stuff
+		switch (currState)
+		{
+			case State.runOrIdle:
+				Vector3 desiredMovement = speed * adjustedMoveInput;
+				velocity += desiredMovement * Time.deltaTime;
+
+				if (desiredMovement.magnitude > 0.01f)
+				{
+					// running visuals
+					if (idleVisuals.activeSelf) idleVisuals.SetActive(false);
+					if (!runningVisuals.activeSelf) runningVisuals.SetActive(true);
+				}
+				else
+				{
+					// idle visuals
+					if (runningVisuals.activeSelf) runningVisuals.SetActive(false);
+					if (!idleVisuals.activeSelf) idleVisuals.SetActive(true);
+				}
+
+				break;
 		}
 
 		// rotate the player to face their velocity
@@ -62,5 +100,18 @@ public class Player : MonoBehaviour
 
 		// move the character controller once
 		cc.Move(velocity);
+
+		// call OnStateChange if necessary
+		if (currState != prevState)
+		{
+			OnStateChanged(prevState, currState);
+		}
+
+		prevState = currState;
+	}
+
+	void OnStateChanged(State oldState, State newState)
+	{
+		//asdf
 	}
 }
