@@ -26,7 +26,7 @@ public class InteractTriggerTeleportAndCamSwitch : MonoBehaviour
 	{
 		if (door)
 		{
-			CRTCameraSwitcher.instance.SwitchTo(door.myRoom.myCamera, door.playerTeleportPoint);
+			CRTCameraSwitcher.instance.SwitchTo(door.connectedTo.myRoom.myCamera, door.connectedTo.playerTeleportPoint);
 			OnTeleported?.Invoke();
 		}
 		else if (nextCamera && whereToTeleportPlayer)

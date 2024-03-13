@@ -59,7 +59,9 @@ public class CRTCameraSwitcher : MonoBehaviour
             if (timer > switchNoiseDuration)
             {
                 timer = -1;
+
                 RawSwitch(nextCamera, true);
+
                 Player.instance.cc.enabled = false;
                 Player.instance.transform.position = nextTeleport.position + Vector3.up;
                 Player.instance.transform.rotation = nextTeleport.rotation;

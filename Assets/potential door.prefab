@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c17173051d57be4c805f8beaf6e24dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: press E to interact
+  interactText: press E to enter
 --- !u!1 &3201516430115399413
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4563264137803368585}
   - component: {fileID: 339544955136881763}
+  - component: {fileID: 4497098069793937454}
   m_Layer: 0
   m_Name: potential door
   m_TagString: Untagged
@@ -340,3 +341,19 @@ MonoBehaviour:
   myRoom: {fileID: 0}
   myTrigger: {fileID: 3634874406129651234}
   playerTeleportPoint: {fileID: 3077566875493131732}
+--- !u!114 &4497098069793937454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8801135159748587659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2dc3676414af743a762aa98848249d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  it: {fileID: 3634874406129651234}
+  nextCamera: {fileID: 0}
+  whereToTeleportPlayer: {fileID: 0}
+  door: {fileID: 339544955136881763}
