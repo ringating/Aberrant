@@ -12,9 +12,15 @@ public class CRTCameraSwitcher : MonoBehaviour
     public Camera noiseCamera;
     [Tooltip("if not set, the crt will start on the noise camera")]
     public Camera currentCamera;
+    [Tooltip("where to teleport the player for the duration of the transition")]
+    public Transform safeBoxTeleport;
+
+    public AudioClip noiseSound;
+    public float noiseVolume = 1f;
 
     float timer;
     Camera nextCamera;
+    Transform nextTeleport;
 
     private void Awake()
     {
@@ -54,6 +60,10 @@ public class CRTCameraSwitcher : MonoBehaviour
             {
                 timer = -1;
                 RawSwitch(nextCamera, true);
+                Player.instance.cc.enabled = false;
+                Player.instance.transform.position = nextTeleport.position + Vector3.up;
+                Player.instance.transform.rotation = nextTeleport.rotation;
+                Player.instance.cc.enabled = true;
             }
 
             timer += Time.deltaTime;
@@ -64,7 +74,7 @@ public class CRTCameraSwitcher : MonoBehaviour
         }
 	}
 
-    public void SwitchTo(Camera nextCamera)
+    public void SwitchTo(Camera nextCamera, Transform playerTeleport)
     {
         if (nextCamera == Camera.main)
         {
@@ -86,6 +96,21 @@ public class CRTCameraSwitcher : MonoBehaviour
 
         // set timer to 0 (specifically after RawSwitch, since that sets the timer to -1)
         timer = 0;
+
+        // teleport player to the safety box
+        Player.instance.cc.enabled = false;
+        Player.instance.transform.position = safeBoxTeleport.transform.position + Vector3.up;
+        Player.instance.cc.enabled = true;
+
+        // play noise sound
+        Audio2DSingleton.instance.audioSource.PlayOneShot(noiseSound, noiseVolume);
+
+        // set next teleport
+        nextTeleport = playerTeleport;
+
+        // clear interact stuff, since it's otherwise not behaving...
+        InteractableTrigger.active = null;
+        InteractText.instance.tmp.text = "";
     }
 
     public void RawSwitch(Camera cam, bool applyUI) // "raw" here means no noise transition

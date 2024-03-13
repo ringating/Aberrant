@@ -17,9 +17,12 @@ public class InteractableTrigger : MonoBehaviour
 
 	List<Collider> overlappingColliders;
 
+	public static InteractableTrigger active;
+
 	private void Awake()
 	{
 		overlappingColliders = new List<Collider>();
+		active = null;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -30,6 +33,7 @@ public class InteractableTrigger : MonoBehaviour
 		if (player)
 		{
 			InteractText.instance.tmp.text = interactText;
+			active = this;
 			OnPlayerEnteredTrigger?.Invoke();
 		}
 	}
@@ -47,6 +51,7 @@ public class InteractableTrigger : MonoBehaviour
 		if (player)
 		{
 			InteractText.instance.tmp.text = "";
+			active = null;
 			OnPlayerExitedTrigger?.Invoke();
 		}
 	}
