@@ -22,6 +22,14 @@ public class LoopAnimation : MonoBehaviour
         }
 	}
 
+	private void OnDisable()
+	{
+        if (restartOnEnable)
+        {
+            anim.Stop();
+        }
+    }
+
 	void Update()
     {
         if (looping && !anim.isPlaying)

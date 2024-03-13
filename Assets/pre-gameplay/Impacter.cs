@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Impacter : MonoBehaviour
 {
+    [SerializeField] int hitStopFrames;
     [Header("animation stuff")]
     [SerializeField] Animation mainCamAnimation;
     [SerializeField] string impactRightClipName;
@@ -21,6 +22,9 @@ public class Impacter : MonoBehaviour
 
     public void Impact(ImpactType impactType) 
     {
+        StutterRender.instance.extraStutter = hitStopFrames;
+        //FreezeFrames.instance.Freeze(hitStopFrames);
+        
         if (mainCamAnimation.isPlaying) 
         {
             mainCamAnimation.Stop();
@@ -38,6 +42,11 @@ public class Impacter : MonoBehaviour
                 lightRB.AddForce(Vector3.left * lightImpulse, ForceMode.Impulse);
                 break;
         }
+    }
+
+    public void RandomImpact()
+    {
+        Impact(Random.value < 0.5f ? ImpactType.left : ImpactType.right);
     }
 
 	private void Awake()
