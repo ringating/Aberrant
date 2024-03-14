@@ -44,11 +44,6 @@ public class GameplayManager : MonoBehaviour
 		currentLevelRoot = LevelGenerator.instance.SpawnLevel(floorSettings[0]);
 	}
 
-	/*public void UseElevatorDoor()
-	{
-
-	}*/
-
 	public void UseDoor(Door doorToEnter)
 	{
 		// teleport player to other door/room + transition
@@ -78,6 +73,7 @@ public class GameplayManager : MonoBehaviour
 		}
 		else
 		{
+			print("you won!");
 			return false;
 		}
 	}

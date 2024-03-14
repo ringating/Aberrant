@@ -16,5 +16,5 @@ public class LevelSettings
     public float prePowerDangerBudget;
     public float postPowerDangerBudget;
 
-    public GameObject[] enemyPrefabs;
+    //public GameObject[] enemyPrefabs;
 }

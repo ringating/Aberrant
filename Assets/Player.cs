@@ -302,8 +302,16 @@ public class Player : MonoBehaviour
 		setFacingDirectionToInput = true;
 	}
 
+	public bool powerBuffed;
 	public void Hit(int damage)
 	{
-		HPManager.instance.HitAndScreenShake(damage);
+		if (powerBuffed)
+		{
+
+		}
+		else
+		{
+			HPManager.instance.HitAndScreenShake(damage);
+		}
 	}
 }

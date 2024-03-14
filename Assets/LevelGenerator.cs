@@ -8,6 +8,8 @@ public class LevelGenerator : MonoBehaviour
 
 	public static LevelGenerator instance;
 
+    List<Enemy> postPowerEnemiesToActive;
+
 	private void Awake()
 	{
         // singleton stuff
@@ -18,6 +20,8 @@ public class LevelGenerator : MonoBehaviour
             return;
         }
         instance = this;
+
+        postPowerEnemiesToActive = null;
     }
 
 	// returns the root transform of the spawned level (so you can destroy it later)
@@ -80,16 +84,25 @@ public class LevelGenerator : MonoBehaviour
         // destroy unused doors
         DestroyAllDisconnectedDoorsInLevel(levelRoot);
 
-        // add the power switch
-        // TODO
+        // cull all but 1 power switch
+        List<PowerSwitchStuff> pssList = new List<PowerSwitchStuff>(levelRoot.GetComponentsInChildren<PowerSwitchStuff>());
+        if (pssList.Count == 0) Debug.LogError("no power switches found!");
+        int saveThisSwitch = Random.Range(0, pssList.Count);
+        for (int i = 0; i < pssList.Count; ++i)
+        {
+            if (i != saveThisSwitch) Destroy(pssList[i].gameObject);
+        }
 
-        // add enemies
-        SpawnPrePowerEnemies(levelSettings, levelRoot);
+        // dupe all enemies, store in two lists (pre and post power)
+
+        // randomly cull both lists and stop according to power budget
+
+        // deactivate all of the post-power enemies (to be reactivated by the power switch)
 
         return levelRoot;
 	}
 
-    void SpawnPrePowerEnemies(LevelSettings levelSettings, Transform levelRoot)
+    /*void SpawnPrePowerEnemies(LevelSettings levelSettings, Transform levelRoot)
     {
         SpawnEnemiesAccordingToBudget(levelSettings.prePowerDangerBudget, levelSettings.enemyPrefabs, levelRoot);
     }
@@ -102,7 +115,9 @@ public class LevelGenerator : MonoBehaviour
     void SpawnEnemiesAccordingToBudget(float dangerBudget, GameObject[] enemyPrefabs, Transform levelRoot)
     {
         // TODO: actually spawn the enemies
-    }
+    }*/
+
+
 
     List<Room> GetRoomsOfLevel(Transform levelRoot) // this should even get the elevator room
     {

@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public int maxHP = 8;
     public int damage = 2;
     public float dangerBudgetCost = 1;
+    public int bounty = 1;
 
     public AudioClipWithVolume soundWhenHit;
     public AudioClipWithVolume soundWhenDie;
@@ -49,6 +50,7 @@ public class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             OnDeath?.Invoke();
+            MoneyManager.instance.AddMoney(bounty);
             Destroy(gameObject); // this is fine for now (and means i dont have to worry about this executing several times, probably)
             return true;
         }

@@ -37,7 +37,7 @@ public class BoltMovement : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		print($"bolt hit {other.name}");
+		//print($"bolt hit {other.name}");
 
 		if (other.name == "Player")
 		{

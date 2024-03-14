@@ -32,9 +32,10 @@ public class CRTCameraSwitcher : MonoBehaviour
             return;
         }
         instance = this;
+    }
 
-        
-
+	private void Start()
+	{
         // set initial values
 
         if (!currentCamera)

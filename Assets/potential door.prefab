@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2237915428998337323}
   - component: {fileID: 2743901861043702530}
   - component: {fileID: 328214796113592495}
+  - component: {fileID: 1771936134120024576}
   m_Layer: 0
   m_Name: basic visual
   m_TagString: Untagged
@@ -26,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566588213388641392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 1.435, z: 0}
+  m_LocalScale: {x: 1.5745, y: 3.149, z: 1.5745}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8818627846957026582}
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e26f60c7e699fea4ea56bee8ed77da07, type: 2}
+  - {fileID: 2100000, guid: 8563b11a89394274f9a0b6b0bab69452, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,6 +85,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1771936134120024576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566588213388641392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e90ad4d211a91419cbfedd122ecee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureDuration: 0.25
+  textures:
+  - {fileID: 2800000, guid: 31feaa2fe128901419c02d6d785f7cf1, type: 3}
+  - {fileID: 2800000, guid: d7989c654b971534fbf98136e9ba89c1, type: 3}
+  - {fileID: 2800000, guid: 4386160527b9ad2458083de3a365c24e, type: 3}
 --- !u!1 &2198475624742367464
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +253,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 41860fa055b02d644808ea9faffeafab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -338,7 +356,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectedTo: {fileID: 0}
-  myRoom: {fileID: 0}
   myTrigger: {fileID: 3634874406129651234}
   playerTeleportPoint: {fileID: 3077566875493131732}
 --- !u!114 &4497098069793937454

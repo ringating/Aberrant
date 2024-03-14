@@ -1037,7 +1037,7 @@ Transform:
   - {fileID: 4198274772337609977}
   - {fileID: 4198274772376453755}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4198274771200691308
 MonoBehaviour:
@@ -1069,6 +1069,7 @@ MonoBehaviour:
   maxHP: 8
   damage: 2
   dangerBudgetCost: 1
+  bounty: 1
   soundWhenHit:
     audioClip: {fileID: 8300000, guid: 043fdf280bffe4141bef781b8f4dd090, type: 3}
     volume: 0.2
@@ -1076,14 +1077,17 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: c947a6661d3743f45ac4a93ef1c3a790, type: 3}
     volume: 0.2
   boltShooter: {fileID: 4198274771200691308}
-  timeBetweenShots: 3
-  fireDelay: 0.3
+  minTimeBetweenShots: 2
+  maxTimeBetweenShots: 5
+  fireDelay: 0.5
   armingSound:
     audioClip: {fileID: 8300000, guid: 7976d21381fd28f47b70e2793e954787, type: 3}
-    volume: 1
+    volume: 0.1
   firingSound:
-    audioClip: {fileID: 0}
-    volume: 0
+    audioClip: {fileID: 8300000, guid: 684d15eac156e0a46b297c1caebc7ad8, type: 3}
+    volume: 0.1
+  green: {fileID: 4198274770832457459}
+  red: {fileID: 4198274770454778355}
 --- !u!1 &4198274771245691056
 GameObject:
   m_ObjectHideFlags: 0

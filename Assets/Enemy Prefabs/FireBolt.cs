@@ -8,13 +8,13 @@ public class FireBolt : MonoBehaviour
     public GameObject boltPrefab;
     public Enemy myEnemy;
 
-    void Update()
+    /*void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
             Fire();
         }
-    }
+    }*/
 
     public void Fire()
     {
