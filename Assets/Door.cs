@@ -4,7 +4,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     [HideInInspector] public Door connectedTo; // possibly assigned during level generation (if not, this door's gameobject will get destroyed by the level generator at some point)
-    [HideInInspector] public Room myRoom; // assigned during Room's Awake
+    [HideInInspector] public Room myRoom { get; set; } // assigned during Room's Awake
 
     public InteractableTrigger myTrigger;
     public Transform playerTeleportPoint;

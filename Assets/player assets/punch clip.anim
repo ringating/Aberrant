@@ -206,6 +206,13 @@ AnimationClip:
     floatParameter: -2
     intParameter: 0
     messageOptions: 0
+  - time: 0
+    functionName: PlayAudioClipByName
+    data: high swing
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.16666667
     functionName: SetPlayerPunchSpeed
     data: 
@@ -225,6 +232,13 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 12
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
+    functionName: PlayAudioClipByName
+    data: low swing
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.4

@@ -3,13 +3,24 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-	[HideInInspector] public List<Door> allDoors; // initially populated in awake
+	[HideInInspector] public List<Door> allDoors { get; set; } // initially populated in Door's awake
+	[HideInInspector] public List<Enemy> allEnemies; // initially populated in awake
 	[HideInInspector] public Camera myCamera; // initially populated in awake
 
 	private void Awake()
 	{
 		UpdateAllDoorsList();
 		UpdateMyCameraAndDisableIt();
+	}
+
+	public void UpdateAllEnemiesList()
+	{
+		allDoors = new List<Door>(GetComponentsInChildren<Door>());
+
+		if (allDoors.Count == 0)
+		{
+			Debug.LogError("no possible enemies found for this room!");
+		}
 	}
 
 	public List<Door> GetAllDisconnectedDoors()

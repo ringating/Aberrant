@@ -10,10 +10,13 @@ public class Player : MonoBehaviour
 	[HideInInspector] public CharacterController cc;
 
 	public float speed = 5;
+	public int damage = 2;
 	public float dodgeSpeed = 9;
 	[HideInInspector] public float punchSpeed;
 	[Tooltip("in degrees per second")]
 	public float dodgeTurnRate = 360;
+	public float dodgeCooldown = .25f;
+	public AudioClipWithVolume dodgeSound;
 
 	public enum State
 	{
@@ -34,7 +37,8 @@ public class Player : MonoBehaviour
 
 	public bool punchActive { get { return punchExtensionVisuals.activeInHierarchy; } } // like this
 
-	private Vector3 prevVelocity;
+	Vector3 prevVelocity;
+	float timeLastDodgeEnded;
 
 	List<ButtonAndTime> inputBuffer;
 
@@ -90,12 +94,12 @@ public class Player : MonoBehaviour
 		setFacingDirectionToInput = false; // reset the value of the override
 
 		// do any button state changes before the "state update" switch statement
-		if (!skipButtonTransitions) 
+		if (!skipButtonTransitions)
 		{
 			switch (currState)
 			{
 				case State.runOrIdle:
-					if (GetButtonDownLenient(Button.dodge))
+					if (Time.unscaledTime - timeLastDodgeEnded > dodgeCooldown && GetButtonDownLenient(Button.dodge))
 					{
 						currState = State.dodging;
 					}
@@ -140,7 +144,7 @@ public class Player : MonoBehaviour
 						// prev state wasn't dodge, so allow dodge to just go in the direction of input
 						dodgeDir = adjustedMoveInput.normalized;
 					}
-					else 
+					else
 					{
 						// previous state was dodge, so rotation is restricted
 						dodgeDir = Vector3.RotateTowards(dodgeDir, adjustedMoveInput, dodgeTurnRate * Mathf.Deg2Rad * Time.deltaTime, 0);
@@ -192,6 +196,7 @@ public class Player : MonoBehaviour
 
 			case State.dodging:
 				if (dodgeVisuals.activeSelf) dodgeVisuals.SetActive(false);
+				timeLastDodgeEnded = Time.unscaledTime;
 				break;
 
 			case State.punching:
@@ -199,7 +204,7 @@ public class Player : MonoBehaviour
 				break;
 		}
 
-		// enable new visuals, maybe set some starting values?
+		// enable new visuals, play sounds, maybe set some starting values?
 		switch (newState)
 		{
 			case State.runOrIdle:
@@ -210,6 +215,7 @@ public class Player : MonoBehaviour
 
 			case State.dodging:
 				if (!dodgeVisuals.activeSelf) dodgeVisuals.SetActive(true);
+				Audio2DSingleton.instance.audioSource.PlayOneShot(dodgeSound.audioClip, dodgeSound.volume);
 				break;
 
 			case State.punching:
@@ -217,7 +223,7 @@ public class Player : MonoBehaviour
 				break;
 		}
 
-		print($"old state: {oldState}, new state: {newState}");
+		//print($"old state: {oldState}, new state: {newState}");
 	}
 
 	void UpdateInputBuffer()
@@ -294,5 +300,10 @@ public class Player : MonoBehaviour
 	public void SetFacingDirectionToInput()
 	{
 		setFacingDirectionToInput = true;
+	}
+
+	public void Hit(int damage)
+	{
+		HPManager.instance.HitAndScreenShake(damage);
 	}
 }

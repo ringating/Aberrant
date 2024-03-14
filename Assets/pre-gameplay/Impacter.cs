@@ -7,6 +7,7 @@ public class Impacter : MonoBehaviour
     [SerializeField] Animation mainCamAnimation;
     [SerializeField] string impactRightClipName;
     [SerializeField] string impactLeftClipName;
+    [SerializeField] Animation screenShakeAnim;
 
     [Header("light physics stuff")]
     [SerializeField] Rigidbody lightRB;
@@ -20,33 +21,38 @@ public class Impacter : MonoBehaviour
         left
     }
 
-    public void Impact(ImpactType impactType) 
+    public void Impact(ImpactType impactType, float lightForceScalar = 1f, bool mainCamImpact = true) 
     {
         StutterRender.instance.extraStutter = hitStopFrames;
         //FreezeFrames.instance.Freeze(hitStopFrames);
-        
-        if (mainCamAnimation.isPlaying) 
-        {
-            mainCamAnimation.Stop();
-        }
+
+        ScreenShakeOnly();
+
+        if (mainCamImpact && mainCamAnimation.isPlaying) mainCamAnimation.Stop();
 
         switch (impactType) 
         {
             case ImpactType.left:
-                mainCamAnimation.Play(impactLeftClipName);
-                lightRB.AddForce(Vector3.right * lightImpulse, ForceMode.Impulse);
+                if (mainCamImpact) mainCamAnimation.Play(impactLeftClipName);
+                lightRB.AddForce(Vector3.right * lightImpulse * lightForceScalar, ForceMode.Impulse);
                 break;
 
             case ImpactType.right:
-                mainCamAnimation.Play(impactRightClipName);
-                lightRB.AddForce(Vector3.left * lightImpulse, ForceMode.Impulse);
+                if (mainCamImpact) mainCamAnimation.Play(impactRightClipName);
+                lightRB.AddForce(Vector3.left * lightImpulse * lightForceScalar, ForceMode.Impulse);
                 break;
         }
     }
 
-    public void RandomImpact()
+    public void RandomImpact(float lightForceScalar = 1f, bool mainCamImpact = true)
     {
-        Impact(Random.value < 0.5f ? ImpactType.left : ImpactType.right);
+        Impact(Random.value < 0.5f ? ImpactType.left : ImpactType.right, lightForceScalar, mainCamImpact);
+    }
+
+    private void ScreenShakeOnly()
+    {
+        if (screenShakeAnim.isPlaying) screenShakeAnim.Stop();
+        screenShakeAnim.Play();
     }
 
 	private void Awake()

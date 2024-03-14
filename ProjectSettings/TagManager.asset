@@ -15,9 +15,9 @@ TagManager:
   - Main Post-Processing
   - Player Collision
   - Player Hitbox
-  - 
-  - 
-  - 
+  - Enemy Hitbox
+  - Enemy Collision
+  - Particles
   - 
   - 
   - 
