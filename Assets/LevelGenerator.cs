@@ -94,10 +94,25 @@ public class LevelGenerator : MonoBehaviour
         }
 
         // dupe all enemies, store in two lists (pre and post power)
+        // scrapped
 
         // randomly cull both lists and stop according to power budget
+        List<Enemy> enemies = new List<Enemy>(levelRoot.GetComponentsInChildren<Enemy>());
+        float currentDangerCost = 0;
+        foreach (Enemy e in enemies) 
+        {
+            currentDangerCost += e.dangerBudgetCost;
+        }
+        while (currentDangerCost > levelSettings.prePowerDangerBudget)
+        {
+            int i = Random.Range(0, enemies.Count);
+            currentDangerCost -= enemies[i].dangerBudgetCost;
+            Destroy(enemies[i].gameObject);
+            enemies.RemoveAt(i);
+        }
 
         // deactivate all of the post-power enemies (to be reactivated by the power switch)
+        // scrapped
 
         return levelRoot;
 	}

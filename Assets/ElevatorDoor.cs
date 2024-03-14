@@ -38,7 +38,7 @@ public class ElevatorDoor : MonoBehaviour
 	bool powerIsOn;
 	void WhenPowered()
 	{
-		it.interactText = initialTriggerText;
+		it.interactText = poweredTriggerText;
 		powerIsOn = true;
 
 		poweredOffLight.SetActive(false);

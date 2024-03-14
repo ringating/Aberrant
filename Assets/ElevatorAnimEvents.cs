@@ -49,6 +49,8 @@ public class ElevatorAnimEvents : MonoBehaviour
         {
             // beat the game???
             // TODO
+
+            print("aidsjhffniksafniksa");
         }
     }
 }

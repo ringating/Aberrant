@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
 	public float dodgeCooldown = .25f;
 	public AudioClipWithVolume dodgeSound;
 
+	public int playerDodgeLayer;
+	public int playerDefaultLayer;
+
 	public enum State
 	{
 		runOrIdle,
@@ -197,6 +200,7 @@ public class Player : MonoBehaviour
 			case State.dodging:
 				if (dodgeVisuals.activeSelf) dodgeVisuals.SetActive(false);
 				timeLastDodgeEnded = Time.unscaledTime;
+				gameObject.layer = playerDefaultLayer;
 				break;
 
 			case State.punching:
@@ -216,6 +220,7 @@ public class Player : MonoBehaviour
 			case State.dodging:
 				if (!dodgeVisuals.activeSelf) dodgeVisuals.SetActive(true);
 				Audio2DSingleton.instance.audioSource.PlayOneShot(dodgeSound.audioClip, dodgeSound.volume);
+				gameObject.layer = playerDodgeLayer;
 				break;
 
 			case State.punching:
@@ -307,7 +312,7 @@ public class Player : MonoBehaviour
 	{
 		if (powerBuffed)
 		{
-
+			/*RewindFrameDisplayer.*/
 		}
 		else
 		{

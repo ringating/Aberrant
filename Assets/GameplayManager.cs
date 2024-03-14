@@ -62,6 +62,7 @@ public class GameplayManager : MonoBehaviour
 		return currentRoom ? currentRoom.myCamera : null;
 	}
 
+	public GameObject youWon;
 	public bool GenerateNextFloor() // returns false if every floor has already been generated
 	{
 		floorIndex++;
@@ -73,6 +74,7 @@ public class GameplayManager : MonoBehaviour
 		}
 		else
 		{
+			youWon.SetActive(true);
 			print("you won!");
 			return false;
 		}

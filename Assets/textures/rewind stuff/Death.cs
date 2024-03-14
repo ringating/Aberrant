@@ -32,7 +32,7 @@ public class Death : MonoBehaviour
 	{
         // test key
         
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             Die();
         }
