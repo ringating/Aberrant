@@ -11,6 +11,8 @@ public class YouDied : MonoBehaviour
 
     public CanvasGroup cg;
 
+    float timer;
+
     bool dead { get; set; }
 
 	private void OnEnable()
@@ -33,22 +35,27 @@ public class YouDied : MonoBehaviour
             return;
         }
         instance = this;
+
+        // other
+        timer = 0;
     }
 
     void Update()
     {
         if (dead) 
         {
-            cg.alpha += Time.deltaTime;
+            timer += Time.deltaTime;
 
-            if (cg.alpha >= 4)
+            cg.alpha = timer;
+
+            if (timer >= 4)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
 
-    public void PlayDeathScreenAndFreezeGame()
+    public void PlayDeathScreenAndFreezeGame() // not accurate anymore but w/e
     {
         dead = true;
     }

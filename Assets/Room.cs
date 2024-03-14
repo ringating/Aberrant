@@ -11,6 +11,7 @@ public class Room : MonoBehaviour
 	{
 		UpdateAllDoorsList();
 		UpdateMyCameraAndDisableIt();
+		UpdateAllEnemiesList();
 	}
 
 	public void UpdateAllEnemiesList()
